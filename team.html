@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Room Booking</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2>Room Booking</h2>
+        <form id="bookingForm">
+            <!-- Room Type Selection -->
+            <div class="form-group">
+                <label for="roomType">Choose Room Type:</label>
+                <select id="roomType" class="form-control">
+                    <option value="standard">Standard</option>
+                    <option value="premium">Premium</option>
+                </select>
+            </div>
+
+            <!-- Duration Selection -->
+            <div class="form-group mt-3">
+                <label for="duration">Choose Duration:</label>
+                <select id="duration" class="form-control">
+                    <option value="day">Day</option>
+                    <option value="night">Night</option>
+                </select>
+            </div>
+
+            <!-- Number of Days -->
+            <div class="form-group mt-3">
+                <label for="numDays">Number of Days:</label>
+                <input type="number" id="numDays" class="form-control" value="1" min="1" />
+            </div>
+
+            <!-- Submit Button -->
+            <button type="button" class="btn btn-primary mt-3" onclick="calculateTotal()">Calculate Total</button>
+        </form>
+
+        <!-- Total Amount Display -->
+        <div id="totalAmount" class="mt-4" style="display:none;">
+            <h3>Total Amount: R <span id="amount"></span></h3>
+        </div>
+
+        <!-- Payment Details Section -->
+        <div id="paymentDetails" class="mt-4" style="display:none;">
+            <h4>Payment Options:</h4>
+            <p>Banking Details: <br>Account Number: 62824434055<br>Bank: FNB Bank</p>
+            <p>Or pay via cash at the GuestHouse.</p>
+            <h5>Please email your proof of payment to: <a href="mailto:mmapule102@gmail.com">mmapule102@gmail.com</a></h5>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function calculateTotal() {
+            // Get the selected values
+            const roomType = document.getElementById('roomType').value;
+            const duration = document.getElementById('duration').value;
+            const numDays = document.getElementById('numDays').value;
+
+            // Define price rates
+            let pricePerDay, pricePerNight;
+
+            if (roomType === 'standard') {
+                pricePerDay = 380;
+                pricePerNight = 450;
+            } else if (roomType === 'premium') {
+                pricePerDay = 550;
+                pricePerNight = 750;
+            }
+
+            // Calculate the total based on the selected duration
+            let total = 0;
+            if (duration === 'day') {
+                total = pricePerDay * numDays;
+            } else if (duration === 'night') {
+                total = pricePerNight * numDays;
+            }
+
+            // Display the total amount
+            document.getElementById('amount').textContent = total.toFixed(2);
+            document.getElementById('totalAmount').style.display = 'block';
+            document.getElementById('paymentDetails').style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>
